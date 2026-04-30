@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
 <title>Charu's Project Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -607,16 +609,109 @@
     .subbar { padding: 12px 20px; }
     .summary-wrap { margin-top: 56px; }
   }
+
+  /* ------- Lock screen ------- */
+  body.locked > .topbar,
+  body.locked > .subbar,
+  body.locked > .wrap,
+  body.locked > .banner { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  .lock-screen {
+    position: fixed; inset: 0;
+    background: var(--page);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .lock-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 16px 40px rgba(31,26,20,0.18);
+    text-align: center;
+  }
+  .lock-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .lock-sub {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .lock-card input[type=password] {
+    text-align: center;
+    font-size: 15px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .lock-error {
+    background: #f5d0d0;
+    color: var(--beet);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .lock-card button.primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .lock-foot {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* Signed-in user pill */
+  .user-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: rgba(255,255,255,0.08);
+    color: var(--butter);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .user-pill:empty { display: none; }
 </style>
 </head>
-<body class="mode-view">
+<body class="mode-view locked">
+
+<!-- ============= Lock Screen ============= -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-title">Charu's Project Tracker</div>
+    <div class="lock-sub">Enter your passcode to view this page.</div>
+    <input type="password" id="lockInput" placeholder="Passcode"
+           onkeydown="if(event.key==='Enter')submitAccess()" autocomplete="off">
+    <div class="lock-error" id="lockError" style="display:none;"></div>
+    <button class="primary" onclick="submitAccess()">Unlock</button>
+    <div class="lock-foot">If you don't have a passcode, contact Charu.</div>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="brand">Charu's Project Tracker</div>
   <div class="actions">
+    <span class="user-pill" id="userPill" title="Signed-in user"></span>
     <span class="mode-pill" id="modePill">View &amp; Comment</span>
     <button class="ghost-light tiny" id="modeBtn" onclick="onModeBtn()">Unlock edit</button>
     <button class="ghost-light tiny" id="settingsBtn" onclick="openSettings()" style="display:none;">Settings</button>
+    <button class="ghost-light tiny" id="signoutBtn" onclick="signOut()">Sign out</button>
   </div>
 </div>
 
@@ -795,7 +890,14 @@
 
 <script>
 /* =============== CONFIG =============== */
-const EDIT_PASSCODE = "charu2026";
+// Each person gets their own passcode. Roles: "edit" (full control) or "view" (read + comment only).
+// To add a new person, add a line. To remove someone, delete their line.
+const ACCESS_CODES = {
+  "charu2026":  { name: "Charu",  role: "edit" },
+  "gaurav2026": { name: "Gaurav", role: "edit" }
+  // Example view-only person:
+  // "guestpass": { name: "Guest", role: "view" }
+};
 const DATA_PATH = "data.json";
 const STORAGE_PREFIX = "tracker_v2__";
 const STATUSES = [
@@ -815,11 +917,65 @@ let dirty = false;
 let currentId = null;
 
 /* =============== INIT =============== */
+function isAuthenticated() {
+  return !!localStorage.getItem(STORAGE_PREFIX + 'access_role');
+}
+function canEdit() {
+  return localStorage.getItem(STORAGE_PREFIX + 'access_role') === 'edit';
+}
+function userName() {
+  return localStorage.getItem(STORAGE_PREFIX + 'access_name') || '';
+}
+
 async function init() {
-  if (localStorage.getItem(STORAGE_PREFIX + 'unlocked') === '1') editMode = true;
+  if (!isAuthenticated()) {
+    showLockScreen();
+    return;
+  }
+  document.getElementById('lockScreen').style.display = 'none';
+  document.body.classList.remove('locked');
+  if (canEdit() && localStorage.getItem(STORAGE_PREFIX + 'unlocked') === '1') {
+    editMode = true;
+  }
   await loadData();
   applyMode();
   renderAll();
+}
+
+function showLockScreen() {
+  document.body.classList.add('locked');
+  document.getElementById('lockScreen').style.display = 'flex';
+  setTimeout(() => {
+    const inp = document.getElementById('lockInput');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+function submitAccess() {
+  const inp = document.getElementById('lockInput');
+  const err = document.getElementById('lockError');
+  const code = (inp.value || '').trim();
+  const entry = ACCESS_CODES[code];
+  if (!entry) {
+    err.textContent = 'Incorrect passcode.';
+    err.style.display = 'block';
+    inp.value = '';
+    inp.focus();
+    return;
+  }
+  localStorage.setItem(STORAGE_PREFIX + 'access_name', entry.name);
+  localStorage.setItem(STORAGE_PREFIX + 'access_role', entry.role);
+  err.style.display = 'none';
+  inp.value = '';
+  init();
+}
+
+function signOut() {
+  if (!confirm('Sign out and lock the tracker?')) return;
+  localStorage.removeItem(STORAGE_PREFIX + 'access_name');
+  localStorage.removeItem(STORAGE_PREFIX + 'access_role');
+  localStorage.removeItem(STORAGE_PREFIX + 'unlocked');
+  location.reload();
 }
 
 async function loadData() {
@@ -892,11 +1048,15 @@ function applyMode() {
   const settingsBtn = document.getElementById('settingsBtn');
   const saveBtn = document.getElementById('saveBtn');
   const downloadBtn = document.getElementById('downloadBtn');
+  const userPill = document.getElementById('userPill');
+
+  if (userPill) userPill.textContent = userName();
 
   if (editMode) {
     pill.textContent = 'View & Edit';
     pill.classList.add('editing');
     modeBtn.textContent = 'Lock';
+    modeBtn.style.display = '';
     settingsBtn.style.display = '';
     saveBtn.style.display = '';
     downloadBtn.style.display = '';
@@ -906,6 +1066,7 @@ function applyMode() {
     pill.textContent = 'View & Comment';
     pill.classList.remove('editing');
     modeBtn.textContent = 'Unlock edit';
+    modeBtn.style.display = canEdit() ? '' : 'none';
     settingsBtn.style.display = 'none';
     saveBtn.style.display = 'none';
     downloadBtn.style.display = 'none';
@@ -926,17 +1087,15 @@ function onModeBtn() {
   if (editMode) {
     lockEdit();
   } else {
-    const code = prompt('Enter edit passcode:');
-    if (code === null) return;
-    if (code === EDIT_PASSCODE) {
-      editMode = true;
-      localStorage.setItem(STORAGE_PREFIX + 'unlocked', '1');
-      applyMode();
-      showBanner('Edit mode unlocked. Click Settings to configure GitHub sync.', 'success');
-      renderAll();
-    } else {
-      alert('Incorrect passcode.');
+    if (!canEdit()) {
+      alert('Your account has view-only access. Sign out and use an editor passcode to make changes.');
+      return;
     }
+    editMode = true;
+    localStorage.setItem(STORAGE_PREFIX + 'unlocked', '1');
+    applyMode();
+    showBanner('Edit mode on — hi ' + userName() + '. Click Settings to configure GitHub sync.', 'success');
+    renderAll();
   }
 }
 
@@ -1030,11 +1189,13 @@ function quickSetStatus(e, id) {
   if (!p || p.status === newStatus) return;
   p.status = newStatus;
   p.updates = p.updates || [];
+  const who = userName();
   p.updates.unshift({
     id: 'u_' + Date.now(),
     type: 'note',
     date: new Date().toISOString(),
-    text: `Tag changed to ${statusLabel(newStatus)}`
+    author: who,
+    text: `Tag changed to ${statusLabel(newStatus)}` + (who ? ' by ' + who : '')
   });
   markDirty();
   renderAll();
@@ -1253,6 +1414,7 @@ function addNote() {
     id: 'u_' + Date.now(),
     type: 'note',
     date: new Date().toISOString(),
+    author: userName(),
     text
   });
   document.getElementById('m_notetext').value = '';
@@ -1275,6 +1437,7 @@ function addStructured() {
     id: 'u_' + Date.now(),
     type: 'structured',
     date: dateISO,
+    author: userName(),
     statusChange: sc,
     statusChangeLabel: sc ? statusLabel(sc) : '',
     metric, next
@@ -1438,7 +1601,8 @@ async function saveToGitHub() {
       const headRes = await fetch(url + ref, { headers });
       if (headRes.ok) { const headJson = await headRes.json(); sha = headJson.sha; }
     } catch (e) {}
-    const body = { message: 'Update project tracker', content: b64, branch: cfg.branch || 'main' };
+    const who = userName();
+    const body = { message: 'Update project tracker' + (who ? ' (' + who + ')' : ''), content: b64, branch: cfg.branch || 'main' };
     if (sha) body.sha = sha;
     const res = await fetch(url, { method: 'PUT', headers, body: JSON.stringify(body) });
     if (!res.ok) {

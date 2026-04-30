@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "id": "qc-claims",
+      "title": "QC Claims & Loss Reduction",
+      "status": "progress",
+      "owner": "",
+      "desc": "Reduce claims and loss via two parallel workstreams: revamping the QC process and progressing the DS model.",
+      "subs": [
+        { "id": "s1", "text": "QC Process Revamp", "done": false },
+        { "id": "s2", "text": "DS Model Next Steps", "done": false }
+      ],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "capacity-calculator",
+      "title": "Capacity Calculator",
+      "status": "todo",
+      "owner": "",
+      "desc": "",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "lm-hygiene",
+      "title": "LM Hygiene Clean Up",
+      "status": "todo",
+      "owner": "",
+      "desc": "",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "refund-doorstep",
+      "title": "Refund At Doorstep",
+      "status": "todo",
+      "owner": "",
+      "desc": "",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "rider-termination-meesho",
+      "title": "Rider Termination - Meesho",
+      "status": "todo",
+      "owner": "",
+      "desc": "",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    }
+  ]
+}

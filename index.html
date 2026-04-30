@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
-<title>Charu's Project Tracker</title>
+<title>Project Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
@@ -694,7 +694,7 @@
 <!-- ============= Lock Screen ============= -->
 <div class="lock-screen" id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">Charu's Project Tracker</div>
+    <div class="lock-title">Project Tracker</div>
     <div class="lock-sub">Enter your passcode to view this page.</div>
     <input type="password" id="lockInput" placeholder="Passcode"
            onkeydown="if(event.key==='Enter')submitAccess()" autocomplete="off">
@@ -705,7 +705,7 @@
 </div>
 
 <div class="topbar">
-  <div class="brand">Charu's Project Tracker</div>
+  <div class="brand">Project Tracker</div>
   <div class="actions">
     <span class="user-pill" id="userPill" title="Signed-in user"></span>
     <span class="mode-pill" id="modePill">View &amp; Comment</span>
@@ -893,8 +893,8 @@
 // Each person gets their own passcode. Roles: "edit" (full control) or "view" (read + comment only).
 // To add a new person, add a line. To remove someone, delete their line.
 const ACCESS_CODES = {
-  "charu2026":  { name: "Charu",  role: "edit" },
-  "gaurav2026": { name: "Gaurav", role: "edit" }
+  "tracker2026":  { name: "Charu",  role: "edit" },
+  "tracker2026": { name: "Gaurav", role: "edit" }
   // Example view-only person:
   // "guestpass": { name: "Guest", role: "view" }
 };

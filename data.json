@@ -52,6 +52,17 @@
       "subs": [],
       "updates": [],
       "emails": []
+    },
+    {
+      "id": "bau",
+      "title": "BAU – Business As Usual",
+      "status": "progress",
+      "owner": "",
+      "desc": "Auto-created. Daily tasks that aren't tagged to any project are logged here.",
+      "subs": [],
+      "updates": [],
+      "emails": []
     }
-  ]
+  ],
+  "tasks": []
 }

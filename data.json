@@ -107,6 +107,11 @@
           "id": "s1779354497295",
           "text": "Give Meesho our P0 asks",
           "done": false
+        },
+        {
+          "id": "s1779354507112",
+          "text": "Get month-wise P0 sequencing from Meesho",
+          "done": false
         }
       ]
     },

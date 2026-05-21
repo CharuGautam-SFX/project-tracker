@@ -7,8 +7,16 @@
       "owner": "",
       "desc": "Reduce claims and loss via two parallel workstreams: revamping the QC process and progressing the DS model.",
       "subs": [
-        { "id": "s1", "text": "QC Process Revamp", "done": false },
-        { "id": "s2", "text": "DS Model Next Steps", "done": false }
+        {
+          "id": "s1",
+          "text": "QC Process Revamp",
+          "done": false
+        },
+        {
+          "id": "s2",
+          "text": "DS Model Next Steps",
+          "done": false
+        }
       ],
       "updates": [],
       "emails": []
@@ -59,6 +67,26 @@
       "status": "progress",
       "owner": "",
       "desc": "Auto-created. Daily tasks that aren't tagged to any project are logged here.",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "p1779353637326",
+      "title": "Untitled project",
+      "status": "paused",
+      "owner": "",
+      "desc": "xxx",
+      "subs": [],
+      "updates": [],
+      "emails": []
+    },
+    {
+      "id": "p1779353712943",
+      "title": "Untitled project",
+      "status": "paused",
+      "owner": "",
+      "desc": "yyyyyy",
       "subs": [],
       "updates": [],
       "emails": []

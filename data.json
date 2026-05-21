@@ -102,7 +102,13 @@
       "tags": [
         "bau"
       ],
-      "subs": []
+      "subs": [
+        {
+          "id": "s1779354497295",
+          "text": "Give Meesho our P0 asks",
+          "done": false
+        }
+      ]
     },
     {
       "id": "t1779354449313",

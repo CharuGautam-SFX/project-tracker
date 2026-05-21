@@ -92,17 +92,5 @@
       "emails": []
     }
   ],
-  "tasks": [
-    {
-      "id": "t1779353821841",
-      "text": "Hello",
-      "done": false,
-      "created": "2026-05-21T08:57:01.841Z",
-      "due": "",
-      "tags": [
-        "qc-claims"
-      ],
-      "subs": []
-    }
-  ]
+  "tasks": []
 }

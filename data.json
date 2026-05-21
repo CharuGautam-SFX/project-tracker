@@ -107,6 +107,11 @@
           "id": "s1779354324743",
           "text": "Rejection rule logic change",
           "done": false
+        },
+        {
+          "id": "s1779354353262",
+          "text": "Rejection rule email for monitoring",
+          "done": false
         }
       ]
     },

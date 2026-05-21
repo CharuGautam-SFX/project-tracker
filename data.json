@@ -122,7 +122,13 @@
       "tags": [
         "qc-claims"
       ],
-      "subs": []
+      "subs": [
+        {
+          "id": "s1779354689780",
+          "text": "Change RR Smart QC logic with Chandan",
+          "done": false
+        }
+      ]
     },
     {
       "id": "t1779354486511",

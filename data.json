@@ -102,7 +102,13 @@
       "tags": [
         "qc-claims"
       ],
-      "subs": []
+      "subs": [
+        {
+          "id": "s1779354324743",
+          "text": "Rejection rule logic change",
+          "done": false
+        }
+      ]
     },
     {
       "id": "t1779354267991",

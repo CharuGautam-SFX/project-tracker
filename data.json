@@ -94,6 +94,17 @@
   ],
   "tasks": [
     {
+      "id": "t1779354449313",
+      "text": "QC, ICSD, ICUD, Sec QC - Image Capture gap",
+      "done": false,
+      "created": "2026-05-21T09:07:29.313Z",
+      "due": "2026-05-21",
+      "tags": [
+        "qc-claims"
+      ],
+      "subs": []
+    },
+    {
       "id": "t1779354379293",
       "text": "Refund at Doorstep - Next Steps",
       "done": false,

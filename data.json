@@ -102,7 +102,13 @@
       "tags": [
         "qc-claims"
       ],
-      "subs": []
+      "subs": [
+        {
+          "id": "s1779354457477",
+          "text": "Ask Meesho for their inputs",
+          "done": false
+        }
+      ]
     },
     {
       "id": "t1779354379293",

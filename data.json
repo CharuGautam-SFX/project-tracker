@@ -114,6 +114,17 @@
   ],
   "tasks": [
     {
+      "id": "t1779354679935",
+      "text": "RVP RR related changes",
+      "done": false,
+      "created": "2026-05-21T09:11:19.935Z",
+      "due": "2026-05-21",
+      "tags": [
+        "qc-claims"
+      ],
+      "subs": []
+    },
+    {
       "id": "t1779354486511",
       "text": "SF <> Meesho - Product Roadmap",
       "done": false,

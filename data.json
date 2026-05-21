@@ -92,5 +92,17 @@
       "emails": []
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "t1779354267991",
+      "text": "Customer blocking logic alignment",
+      "done": false,
+      "created": "2026-05-21T09:04:27.992Z",
+      "due": "2026-05-21",
+      "tags": [
+        "qc-claims"
+      ],
+      "subs": []
+    }
+  ]
 }

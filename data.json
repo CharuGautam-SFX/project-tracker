@@ -53,7 +53,7 @@
           "id": "u1779354568862",
           "date": "2026-05-21T09:09:28.862Z",
           "kind": "status",
-          "text": "Status changed: Not Started Ã¢ÂÂ In Progress",
+          "text": "Status changed: Not Started ÃÂ¢ÃÂÃÂ In Progress",
           "statusFrom": "todo",
           "statusTo": "progress",
           "by": "Charu"
@@ -73,7 +73,7 @@
           "id": "u1779354563200",
           "date": "2026-05-21T09:09:23.200Z",
           "kind": "status",
-          "text": "Status changed: Not Started Ã¢ÂÂ In Progress",
+          "text": "Status changed: Not Started ÃÂ¢ÃÂÃÂ In Progress",
           "statusFrom": "todo",
           "statusTo": "progress",
           "by": "Charu"
@@ -83,7 +83,7 @@
     },
     {
       "id": "bau",
-      "title": "BAU ÃÂ¢ÃÂÃÂ Basic As Usual",
+      "title": "BAU ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Basic As Usual",
       "status": "progress",
       "owner": "",
       "desc": "Auto-created. Daily tasks that aren't tagged to any project are logged here.",
